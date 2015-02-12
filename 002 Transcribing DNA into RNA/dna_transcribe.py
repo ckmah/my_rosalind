@@ -1,3 +1,7 @@
+# !/usr/bin/env python
+# author: Clarence Mah
+# Print the RNA transcription of a given DNA sequence in a text file.
+
 from sys import argv
 script, filename = argv
 
