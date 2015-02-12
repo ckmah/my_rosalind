@@ -1,3 +1,7 @@
+# !/usr/bin/env python
+# author: Clarence Mah
+# Print the reverse complement of the given DNA sequence.
+
 from sys import argv
 
 script, filename = argv
