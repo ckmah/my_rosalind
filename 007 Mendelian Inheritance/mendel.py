@@ -1,28 +1,39 @@
 # !/usr/bin/env python
 # # author: Clarence Mah
-# Given: Three positive integers k, m, and n, representing a population containing k+m+n organisms: k individuals are homozygous dominant for a factor, m are heterozygous, and n are homozygous recessive.
-# Return: The probability that two randomly selected mating organisms will produce an individual possessing a dominant allele (and thus displaying the dominant phenotype). Assume that any two organisms can mate.
+# Given: Three positive integers k, m, and n, representing a population
+#     containing k+m+n organisms: k individuals are homozygous dominant for a
+#     factor, m are heterozygous, and n are homozygous recessive.
+# Return: The probability that two randomly selected mating organisms will
+#     produce an individual possessing a dominant allele (and thus
+#     displaying the dominant phenotype). Assume that any two organisms can
+#     mate.
+
+import math
 from sys import argv
 
 script, filename = argv
 
-genotypes = open(filename).read().split(' ')
+data = open(filename).read().split(' ')
 
-dom_homo = genotypes[0]
-hetero = genotypes[1]
-rec_homo = genotypes[2]
+# k = homo dominant, m = heterozygous, n = homo recessive
+k = int(data[0])
+m = int(data[1])
+n = int(data[2])
+total = float(k + m + n)
 
-total_parents = dom_homo + hetero + rec_homo
+#probabilities of choosing specific genotype
+probk = k/total
+probm = m/total
+probn = n/total
+p = 1
 
-total_offspring = math.factorial(total_parents)
+# prob of hetero cross homo recessive, and homo recessive cross hetero
+p -= (0.5)*probm*(n/(total - 1)) + (0.5)*probn*(m/(total - 1))
 
-dom_cross_all = (dom_homo*(hetero+rec_homo)+(math.factorial(dom_homo)/(math.factorial(dom_homo-2)*2)))
+# prob of hetero cross hetero
+p -= (0.25)*probm*((m - 1)/(total - 1))
 
-hetero_cross_rec_homo = 0.5*(hetero*rec_homo)
-hetero_cross_hetero = 0.75(hetero - 1)
+# prob of homo recessive cross homo recessive
+p -= probn*((n - 1)/(total - 1))
 
-total_homo = dom_cross_all + hetero_cross_hetero + hetero_cross_rec_homo
-
-prob_dom_phenotype = total_homo/total_offspring
-
-print prob_dom_phenotype
+print p
