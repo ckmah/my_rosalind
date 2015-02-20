@@ -6,21 +6,23 @@ from sys import argv
 
 script, filename = argv
 
-population = open(filename).read().split(' ')
+genotypes = open(filename).read().split(' ')
 
-dominant = population[0]
-heterozygous = population[1]
-recessive = population[2]
+dom_homo = genotypes[0]
+hetero = genotypes[1]
+rec_homo = genotypes[2]
 
-genotypes = []
+total_parents = dom_homo + hetero + rec_homo
 
-for count in range(0, dominant):
-    genotypes.append('AA')
+total_offspring = math.factorial(total_parents)
 
-for count in range(0, heterozygous):
-    genotypes.append('Aa')
+dom_cross_all = (dom_homo*(hetero+rec_homo)+(math.factorial(dom_homo)/(math.factorial(dom_homo-2)*2)))
 
-for count in range(0, recessive):
-    genotypes.append('aa')
+hetero_cross_rec_homo = 0.5*(hetero*rec_homo)
+hetero_cross_hetero = 0.75(hetero - 1)
 
+total_homo = dom_cross_all + hetero_cross_hetero + hetero_cross_rec_homo
 
+prob_dom_phenotype = total_homo/total_offspring
+
+print prob_dom_phenotype
