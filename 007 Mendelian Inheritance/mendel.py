@@ -19,6 +19,8 @@ data = open(filename).read().split(' ')
 k = int(data[0])
 m = int(data[1])
 n = int(data[2])
+data.close()
+
 total = float(k + m + n)
 
 #probabilities of choosing specific genotype
