@@ -26,7 +26,8 @@ for k in id_seq:
         seq = id_seq[k]
         if len(short) > len(seq):
             short = seq
-            
+
+
 def is_substr(str1, str2):
     '''
     Checks if str1 is substring of str2.
@@ -57,14 +58,15 @@ def lcs_list(short, strings):
     # loop through start indices
     for index in range(0, len(short)):
         # loop through end indices per start index
-        for end_index in reversed(range(index + 1, len(short)+1)):
+        for end_index in reversed(range(index + 1, len(short) + 1)):
             # loop through each string
             max_count = 0
             for k in strings:
                 # return short if all have substring
                 if is_substr(short[index:end_index], strings[k]):
                     max_count += 1
-                    if max_count == len(strings) and len(short[index:end_index]) > len(lcs):
+                    if (max_count == len(strings)
+                            and len(short[index:end_index]) > len(lcs)):
                         lcs = short[index:end_index]
                 else:
                     break
